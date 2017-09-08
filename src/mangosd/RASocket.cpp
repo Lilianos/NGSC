@@ -74,7 +74,7 @@ bool RASocket::Open()
 /// Read data from the network
 bool RASocket::ProcessIncomingData()
 {
-    //DEBUG_LOG("RASocket::ProcessIncomingData");
+    DEBUG_LOG("RASocket::ProcessIncomingData");
 
     std::string buffer;
     buffer.resize(ReadLengthRemaining());

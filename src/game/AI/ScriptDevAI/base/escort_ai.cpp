@@ -196,7 +196,7 @@ void npc_escortAI::UpdateAI(const uint32 uiDiff)
         {
             if (!HasEscortState(STATE_ESCORT_PAUSED) && !IsPlayerOrGroupInRange())
             {
-                //DEBUG_log("SD2: EscortAI failed because player/group was to far away or not found");
+                debug_log("SD2: EscortAI failed because player/group was to far away or not found");
 
                 if (m_bCanInstantRespawn)
                 {
@@ -277,21 +277,15 @@ void npc_escortAI::SetRun(bool bRun)
     {
         if (!m_bIsRunning)
             m_creature->SetWalk(false);
-		else
-		{
-			//DEBUG_log("SD2: EscortAI attempt to set run mode, but is already running.");
-		}
-            
+        else
+            debug_log("SD2: EscortAI attempt to set run mode, but is already running.");
     }
     else
     {
         if (m_bIsRunning)
             m_creature->SetWalk(true);
-		else
-		{
-			//DEBUG_log("SD2: EscortAI attempt to set walk mode, but is already walking.");
-		}
-            
+        else
+            debug_log("SD2: EscortAI attempt to set walk mode, but is already walking.");
     }
     m_bIsRunning = bRun;
 }
@@ -327,7 +321,7 @@ void npc_escortAI::Start(bool bRun, const Player* pPlayer, const Quest* pQuest, 
     m_bCanReturnToStart = bCanLoopPath;
 
     if (m_bCanReturnToStart && m_bCanInstantRespawn)
-        //DEBUG_log("SD2: EscortAI is set to return home after waypoint end and instant respawn at waypoint end. Creature will never despawn.");
+        debug_log("SD2: EscortAI is set to return home after waypoint end and instant respawn at waypoint end. Creature will never despawn.");
 
     // disable npcflags
     m_creature->SetUInt32Value(UNIT_NPC_FLAGS, UNIT_NPC_FLAG_NONE);

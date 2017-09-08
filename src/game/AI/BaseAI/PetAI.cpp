@@ -310,7 +310,7 @@ void PetAI::UpdateAI(const uint32 diff)
         // This is needed for charmed creatures, as once their target was reset other effects can trigger threat
         if (!victim->isTargetableForAttack())
         {
-            //DEBUG_FILTER_LOG(LOG_FILTER_AI_AND_MOVEGENSS, "PetAI (guid = %u) is stopping attack.", m_unit->GetGUIDLow());
+            DEBUG_FILTER_LOG(LOG_FILTER_AI_AND_MOVEGENSS, "PetAI (guid = %u) is stopping attack.", m_unit->GetGUIDLow());
             m_unit->CombatStop();
             inCombat = false;
             
@@ -340,10 +340,8 @@ void PetAI::UpdateAI(const uint32 diff)
     {
         CharmInfo* charmInfo = m_unit->GetCharmInfo();
 
-		if (owner->isInCombat() && !(charmInfo && (charmInfo->HasReactState(REACT_PASSIVE) || charmInfo->HasReactState(REACT_DEFENSIVE)))) // Correctif
-		{
-			AttackStart(owner->getAttackerForHelper());
-		} 
+        if (owner->isInCombat() && !(charmInfo && charmInfo->HasReactState(REACT_PASSIVE)))
+            AttackStart(owner->getAttackerForHelper());
         else
         {
             if (charmInfo && charmInfo->HasCommandState(COMMAND_STAY))

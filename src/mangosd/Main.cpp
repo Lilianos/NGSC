@@ -183,14 +183,14 @@ int main(int argc, char *argv[])
 
     sLog.outString("Using configuration file %s.", configFile.c_str());
 
-    //DETAIL_LOG("%s (Library: %s)", OPENSSL_VERSION_TEXT, SSLeay_version(SSLEAY_VERSION));
+    DETAIL_LOG("%s (Library: %s)", OPENSSL_VERSION_TEXT, SSLeay_version(SSLEAY_VERSION));
     if (SSLeay() < 0x009080bfL)
     {
-        //DETAIL_LOG("WARNING: Outdated version of OpenSSL lib. Logins to server may not work!");
-        //DETAIL_LOG("WARNING: Minimal required version [OpenSSL 0.9.8k]");
+        DETAIL_LOG("WARNING: Outdated version of OpenSSL lib. Logins to server may not work!");
+        DETAIL_LOG("WARNING: Minimal required version [OpenSSL 0.9.8k]");
     }
 
-    //DETAIL_LOG("Using Boost: %s", BOOST_LIB_VERSION);
+    DETAIL_LOG("Using Boost: %s", BOOST_LIB_VERSION);
 
     ///- Set progress bars show mode
     BarGoLink::SetOutputState(sConfig.GetBoolDefault("ShowProgressBars", true));

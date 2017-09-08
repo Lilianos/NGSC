@@ -709,7 +709,7 @@ void GameObject::DeleteFromDB() const
 {
     if (!HasStaticDBSpawnData())
     {
-		//DEBUG_LOG("Trying to delete not saved gameobject!");
+        DEBUG_LOG("Trying to delete not saved gameobject!");
         return;
     }
 
@@ -1130,7 +1130,7 @@ void GameObject::Use(Unit* user)
             // TODO: possible must be moved to loot release (in different from linked triggering)
             if (GetGOInfo()->chest.eventId)
             {
-				//DEBUG_LOG("Chest ScriptStart id %u for %s (opened by %s)", GetGOInfo()->chest.eventId, GetGuidStr().c_str(), user->GetGuidStr().c_str());
+                DEBUG_LOG("Chest ScriptStart id %u for %s (opened by %s)", GetGOInfo()->chest.eventId, GetGuidStr().c_str(), user->GetGuidStr().c_str());
                 StartEvents_Event(GetMap(), GetGOInfo()->chest.eventId, user, this);
             }
 
@@ -1299,7 +1299,7 @@ void GameObject::Use(Unit* user)
 
                 if (info->goober.eventId)
                 {
-					////DEBUG_FILTER_LOG(LOG_FILTER_AI_AND_MOVEGENSS, "Goober ScriptStart id %u for %s (Used by %s).", info->goober.eventId, GetGuidStr().c_str(), player->GetGuidStr().c_str());
+                    DEBUG_FILTER_LOG(LOG_FILTER_AI_AND_MOVEGENSS, "Goober ScriptStart id %u for %s (Used by %s).", info->goober.eventId, GetGuidStr().c_str(), player->GetGuidStr().c_str());
                     StartEvents_Event(GetMap(), info->goober.eventId, player, this);
                 }
 
@@ -1378,7 +1378,7 @@ void GameObject::Use(Unit* user)
                     int32 chance = skill - zone_skill + 5;
                     int32 roll = irand(1, 100);
 
-					//DEBUG_LOG("Fishing check (skill: %i zone min skill: %i chance %i roll: %i", skill, zone_skill, chance, roll);
+                    DEBUG_LOG("Fishing check (skill: %i zone min skill: %i chance %i roll: %i", skill, zone_skill, chance, roll);
 
                     // normal chance
                     bool success = skill >= zone_skill && chance >= roll;
@@ -1941,7 +1941,7 @@ struct SpawnGameObjectInMapsWorker
         if (map->IsLoaded(i_data->posX, i_data->posY))
         {
             GameObject* pGameobject = new GameObject;
-            // //DEBUG_LOG("Spawning gameobject %u", *itr);
+            // DEBUG_LOG("Spawning gameobject %u", *itr);
             if (!pGameobject->LoadFromDB(i_guid, map))
             {
                 delete pGameobject;

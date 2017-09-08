@@ -145,7 +145,7 @@ bool MySQLConnection::Initialize(const char* infoString)
         return false;
     }
 
-    //DETAIL_LOG("Connected to MySQL database %s@%s:%s/%s", user.c_str(), host.c_str(), port_or_socket.c_str(), database.c_str());
+    DETAIL_LOG("Connected to MySQL database %s@%s:%s/%s", user.c_str(), host.c_str(), port_or_socket.c_str(), database.c_str());
     sLog.outString("MySQL client library: %s", mysql_get_client_info());
     sLog.outString("MySQL server ver: %s ", mysql_get_server_info(mMysql));
 
@@ -160,10 +160,10 @@ bool MySQLConnection::Initialize(const char* infoString)
     // ---
     // LEAVE 'AUTOCOMMIT' MODE ALWAYS ENABLED!!!
     // W/O IT EVEN 'SELECT' QUERIES WOULD REQUIRE TO BE WRAPPED INTO 'START TRANSACTION'<>'COMMIT' CLAUSES!!!
-    //if (!mysql_autocommit(mMysql, 1))
-        //DETAIL_LOG("AUTOCOMMIT SUCCESSFULLY SET TO 1");
-    //else
-        //DETAIL_LOG("AUTOCOMMIT NOT SET TO 1");
+    if (!mysql_autocommit(mMysql, 1))
+        DETAIL_LOG("AUTOCOMMIT SUCCESSFULLY SET TO 1");
+    else
+        DETAIL_LOG("AUTOCOMMIT NOT SET TO 1");
     /*-------------------------------------*/
 
     // set connection properties to UTF8 to properly handle locales for different
@@ -189,7 +189,7 @@ bool MySQLConnection::_Query(const char* sql, MYSQL_RES** pResult, MYSQL_FIELD**
     }
     else
     {
-        //DEBUG_FILTER_LOG(LOG_FILTER_SQL_TEXT, "[%u ms] SQL: %s", WorldTimer::getMSTimeDiff(_s, WorldTimer::getMSTime()), sql);
+        DEBUG_FILTER_LOG(LOG_FILTER_SQL_TEXT, "[%u ms] SQL: %s", WorldTimer::getMSTimeDiff(_s, WorldTimer::getMSTime()), sql);
     }
 
     *pResult = mysql_store_result(mMysql);
@@ -261,7 +261,7 @@ bool MySQLConnection::Execute(const char* sql)
         }
         else
         {
-            //DEBUG_FILTER_LOG(LOG_FILTER_SQL_TEXT, "[%u ms] SQL: %s", WorldTimer::getMSTimeDiff(_s, WorldTimer::getMSTime()), sql);
+            DEBUG_FILTER_LOG(LOG_FILTER_SQL_TEXT, "[%u ms] SQL: %s", WorldTimer::getMSTimeDiff(_s, WorldTimer::getMSTime()), sql);
         }
         // end guarded block
     }
@@ -279,7 +279,7 @@ bool MySQLConnection::_TransactionCmd(const char* sql)
     }
     else
     {
-        //DEBUG_FILTER_LOG(LOG_FILTER_SQL_TEXT, "SQL: %s", sql);
+        DEBUG_FILTER_LOG(LOG_FILTER_SQL_TEXT, "SQL: %s", sql);
     }
     return true;
 }

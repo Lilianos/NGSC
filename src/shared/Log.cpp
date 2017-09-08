@@ -1030,7 +1030,7 @@ void debug_log(const char* str, ...)
     vsnprintf(buf, 256, str, ap);
     va_end(ap);
 
-    //DEBUG_LOG("%s", buf);
+    DEBUG_LOG("%s", buf);
 }
 
 void error_log(const char* str, ...)

@@ -87,7 +87,7 @@ bool instance_stratholme::StartSlaugtherSquare()
         DoUseDoorOrButton(GO_PORT_GAUNTLET);
         DoUseDoorOrButton(GO_PORT_SLAUGTHER);
 
-        //DEBUG_log("SD2: Instance Stratholme: Open slaugther square.");
+        debug_log("SD2: Instance Stratholme: Open slaugther square.");
 
         return true;
     }
@@ -227,7 +227,7 @@ void instance_stratholme::SetData(uint32 uiType, uint32 uiData)
                     }
 
                     m_uiBaronRunTimer = 45 * MINUTE * IN_MILLISECONDS;
-                    //DEBUG_log("SD2: Instance Stratholme: Baron run in progress.");
+                    debug_log("SD2: Instance Stratholme: Baron run in progress.");
                     break;
                 case FAIL:
                     // may add code to remove aura from players, but in theory the time should be up already and removed.
@@ -291,14 +291,11 @@ void instance_stratholme::SetData(uint32 uiType, uint32 uiData)
                         if (Creature* pRamstein = pBaron->SummonCreature(NPC_RAMSTEIN, aStratholmeLocation[2].m_fX, aStratholmeLocation[2].m_fY, aStratholmeLocation[2].m_fZ, aStratholmeLocation[2].m_fO, TEMPSUMMON_DEAD_DESPAWN, 0))
                             pRamstein->GetMotionMaster()->MovePoint(0, aStratholmeLocation[5].m_fX, aStratholmeLocation[5].m_fY, aStratholmeLocation[5].m_fZ);
 
-                        //DEBUG_log("SD2: Instance Stratholme - Slaugther event: Ramstein spawned.");
+                        debug_log("SD2: Instance Stratholme - Slaugther event: Ramstein spawned.");
                     }
                 }
-				else
-				{
-					//DEBUG_log("SD2: Instance Stratholme - Slaugther event: %u Abomnation left to kill.", uiCount);
-				}
- 
+                else
+                    debug_log("SD2: Instance Stratholme - Slaugther event: %u Abomnation left to kill.", uiCount);
             }
             // After fail aggroing Ramstein means wipe on Ramstein, so close door again
             if (uiData == IN_PROGRESS && m_auiEncounter[uiType] == FAIL)
@@ -325,7 +322,7 @@ void instance_stratholme::SetData(uint32 uiType, uint32 uiData)
                             m_luiGuardGUIDs.push_back(pTemp->GetObjectGuid());
                     }
 
-                    //DEBUG_log("SD2: Instance Stratholme - Slaugther event: Summoned 5 guards.");
+                    debug_log("SD2: Instance Stratholme - Slaugther event: Summoned 5 guards.");
                 }
             }
             // Open Door again and stop Abomnation
@@ -940,7 +937,7 @@ void instance_stratholme::DoGateTrap(uint8 uiGate)
     if (m_uiGateTrapTimers[uiGate][0])
         return;
 
-    //DEBUG_log("SD2: Instance Stratholme - Rat Trap activated %i.", uiGate);
+    debug_log("SD2: Instance Stratholme - Rat Trap activated %i.", uiGate);
     // close the gates
     DoUseDoorOrButton(aGates[2 * uiGate]);
     DoUseDoorOrButton(aGates[2 * uiGate + 1]);
@@ -978,7 +975,7 @@ void instance_stratholme::Update(uint32 uiDiff)
             m_uiGateTrapTimers[i][0] -= uiDiff;
             if (m_uiGateTrapTimers[i][0] <= uiDiff)
             {
-                //DEBUG_log("SD2: Instance Stratholme - Rat Trap reseted %u.", i);
+                debug_log("SD2: Instance Stratholme - Rat Trap reseted %u.", i);
                 m_uiGateTrapTimers[i][0] = 0;
             }
         }
@@ -1150,7 +1147,7 @@ void instance_stratholme::Update(uint32 uiDiff)
                 DoOrSimulateScriptTextForThisInstance(SAY_YSIDA_RUN_FAIL, NPC_YSIDA);
 
                 m_uiBaronRunTimer = 0;  // event done for good, no more speech
-                //DEBUG_log("SD2: Instance Stratholme: Baron run event reached end. Event has state %u.", GetData(TYPE_BARON_RUN));
+                debug_log("SD2: Instance Stratholme: Baron run event reached end. Event has state %u.", GetData(TYPE_BARON_RUN));
             }
         }
         else

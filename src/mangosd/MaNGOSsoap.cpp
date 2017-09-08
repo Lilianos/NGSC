@@ -56,7 +56,7 @@ void SOAPThread::Work()
         if (s == SOAP_INVALID_SOCKET)
             continue;
 
-		//DEBUG_LOG("MaNGOSsoap: accepted connection from IP=%d.%d.%d.%d", (int)(soap.ip >> 24) & 0xFF, (int)(soap.ip >> 16) & 0xFF, (int)(soap.ip >> 8) & 0xFF, (int)soap.ip & 0xFF);
+        DEBUG_LOG("MaNGOSsoap: accepted connection from IP=%d.%d.%d.%d", (int)(soap.ip >> 24) & 0xFF, (int)(soap.ip >> 16) & 0xFF, (int)(soap.ip >> 8) & 0xFF, (int)soap.ip & 0xFF);
 
         auto copy = soap_copy(&soap);
         soap_serve(copy);
@@ -77,33 +77,33 @@ int ns1__executeCommand(soap* soap, char* command, char** result)
     // security check
     if (!soap->userid || !soap->passwd)
     {
-		//DEBUG_LOG("MaNGOSsoap: Client didn't provide login information");
+        DEBUG_LOG("MaNGOSsoap: Client didn't provide login information");
         return 401;
     }
 
     auto const accountId = sAccountMgr.GetId(soap->userid);
     if (!accountId)
     {
-		//DEBUG_LOG("MaNGOSsoap: Client used invalid username '%s'", soap->userid);
+        DEBUG_LOG("MaNGOSsoap: Client used invalid username '%s'", soap->userid);
         return 401;
     }
 
     if (!sAccountMgr.CheckPassword(accountId, soap->passwd))
     {
-		//DEBUG_LOG("MaNGOSsoap: invalid password for account '%s'", soap->userid);
+        DEBUG_LOG("MaNGOSsoap: invalid password for account '%s'", soap->userid);
         return 401;
     }
 
     if (sAccountMgr.GetSecurity(accountId) < SOAPThread::MinLevel)
     {
-		//DEBUG_LOG("MaNGOSsoap: %s's gmlevel is too low", soap->userid);
+        DEBUG_LOG("MaNGOSsoap: %s's gmlevel is too low", soap->userid);
         return 403;
     }
 
     if (!command || !*command)
         return soap_sender_fault(soap, "Command mustn't be empty", "The supplied command was an empty string");
 
-    //DEBUG_LOG("MaNGOSsoap: got command '%s'", command);
+    DEBUG_LOG("MaNGOSsoap: got command '%s'", command);
 
     bool commandExecuted = false, commandSucceeded = false;
     std::vector<char> buffer;

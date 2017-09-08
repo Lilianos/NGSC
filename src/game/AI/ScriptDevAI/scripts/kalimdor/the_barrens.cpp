@@ -296,7 +296,7 @@ struct npc_twiggy_flatheadAI : public ScriptedAI
             return true;
         }
 
-        //DEBUG_log("SD2: npc_twiggy_flathead event already in progress, need to wait.");
+        debug_log("SD2: npc_twiggy_flathead event already in progress, need to wait.");
         return false;
     }
 

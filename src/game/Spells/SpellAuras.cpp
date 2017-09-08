@@ -272,7 +272,7 @@ Aura::Aura(SpellEntry const* spellproto, SpellEffectIndex eff, int32* currentBas
         damage = caster->CalculateSpellDamage(target, spellproto, m_effIndex, &m_currentBasePoints);
     }
 
-    ////DEBUG_FILTER_LOG(LOG_FILTER_SPELL_CAST, "Aura: construct Spellid : %u, Aura : %u Target : %d Damage : %d", spellproto->Id, spellproto->EffectApplyAuraName[eff], spellproto->EffectImplicitTargetA[eff], damage);
+    DEBUG_FILTER_LOG(LOG_FILTER_SPELL_CAST, "Aura: construct Spellid : %u, Aura : %u Target : %d Damage : %d", spellproto->Id, spellproto->EffectApplyAuraName[eff], spellproto->EffectImplicitTargetA[eff], damage);
 
     SetModifier(AuraType(spellproto->EffectApplyAuraName[eff]), damage, spellproto->EffectAmplitude[eff], spellproto->EffectMiscValue[eff]);
 
@@ -1419,27 +1419,10 @@ void Aura::HandleAuraDummy(bool apply, bool Real)
     // pet auras
     if (PetAura const* petSpell = sSpellMgr.GetPetAura(GetId()))
     {
-		if (GetSpellProto()->Id == 28757 || GetSpellProto()->Id == 28758)
-		{
-			DEBUG_LOG("Bite HandeAuraDummy 1, GetSpellProto()->Id = %d", GetSpellProto()->Id);
-		}
-		
-		if (apply)
-		{
-			if (GetSpellProto()->Id == 28757 || GetSpellProto()->Id == 28758)
-			{
-				DEBUG_LOG("Bite HandeAuraDummy 2, target = %s", target->GetName());
-			}
-			target->AddPetAura(petSpell);
-		}
-		else
-		{
-			if (GetSpellProto()->Id == 28757 || GetSpellProto()->Id == 28758)
-			{
-				DEBUG_LOG("Bite HandeAuraDummy 3, target = %s", target->GetName());
-			}
-			target->RemovePetAura(petSpell);
-		}
+        if (apply)
+            target->AddPetAura(petSpell);
+        else
+            target->RemovePetAura(petSpell);
         return;
     }
 
@@ -1457,14 +1440,8 @@ void Aura::HandleAuraDummy(bool apply, bool Real)
     }
 
     // script has to "handle with care", only use where data are not ok to use in the above code.
-	if (target->GetTypeId() == TYPEID_UNIT)
-	{
-		if (GetSpellProto()->Id == 28757 || GetSpellProto()->Id == 28758)
-		{
-			DEBUG_LOG("Bite HandeAuraDummy 2");
-		}
-		sScriptDevAIMgr.OnAuraDummy(this, apply);
-	}
+    if (target->GetTypeId() == TYPEID_UNIT)
+        sScriptDevAIMgr.OnAuraDummy(this, apply);
 }
 
 void Aura::HandleAuraMounted(bool apply, bool Real)
@@ -3726,7 +3703,7 @@ void Aura::HandleModDamageDone(bool apply, bool Real)
 
 void Aura::HandleModDamagePercentDone(bool apply, bool Real)
 {
-	////DEBUG_FILTER_LOG(LOG_FILTER_SPELL_CAST, "AURA MOD DAMAGE type:%u negative:%u", m_modifier.m_miscvalue, m_positive ? 0 : 1);
+    DEBUG_FILTER_LOG(LOG_FILTER_SPELL_CAST, "AURA MOD DAMAGE type:%u negative:%u", m_modifier.m_miscvalue, m_positive ? 0 : 1);
     Unit* target = GetTarget();
 
     // apply item specific bonuses for already equipped weapon
@@ -3790,7 +3767,7 @@ void Aura::HandleModOffhandDamagePercent(bool apply, bool Real)
     if (!Real)
         return;
 
-	////DEBUG_FILTER_LOG(LOG_FILTER_SPELL_CAST, "AURA MOD OFFHAND DAMAGE");
+    DEBUG_FILTER_LOG(LOG_FILTER_SPELL_CAST, "AURA MOD OFFHAND DAMAGE");
 
     GetTarget()->HandleStatModifier(UNIT_MOD_DAMAGE_OFFHAND, TOTAL_PCT, float(m_modifier.m_amount), apply);
 }

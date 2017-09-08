@@ -227,7 +227,7 @@ World::AddSession_(WorldSession* s)
     {
         AddQueuedSession(s);
         UpdateMaxSessionCounters();
-        //DETAIL_LOG("PlayerQueue: Account id %u is in Queue Position (%u).", s->GetAccountId(), ++QueueSize);
+        DETAIL_LOG("PlayerQueue: Account id %u is in Queue Position (%u).", s->GetAccountId(), ++QueueSize);
         return;
     }
 
@@ -253,7 +253,7 @@ World::AddSession_(WorldSession* s)
         SqlStatement stmt = LoginDatabase.CreateStatement(id, "UPDATE realmlist SET population = ? WHERE id = ?");
         stmt.PExecute(popu, realmID);
 
-        //DETAIL_LOG("Server Population (%f).", popu);
+        DETAIL_LOG("Server Population (%f).", popu);
     }
 }
 
@@ -1230,7 +1230,7 @@ void World::SetInitialWorldSettings()
     mail_timer = uint32((((localtime(&m_gameTime)->tm_hour + 20) % 24) * HOUR * IN_MILLISECONDS) / m_timers[WUPDATE_AUCTIONS].GetInterval());
     // 1440
     mail_timer_expires = uint32((DAY * IN_MILLISECONDS) / (m_timers[WUPDATE_AUCTIONS].GetInterval()));
-    //DEBUG_LOG("Mail timer set to: %u, mail return is called every %u minutes", mail_timer, mail_timer_expires);
+    DEBUG_LOG("Mail timer set to: %u, mail return is called every %u minutes", mail_timer, mail_timer_expires);
 
     ///- Initialize static helper structures
     AIRegistry::Initialize();
@@ -1777,7 +1777,7 @@ void World::ShutdownMsg(bool show /*= false*/, Player* player /*= nullptr*/)
         ServerMessageType msgid = (m_ShutdownMask & SHUTDOWN_MASK_RESTART) ? SERVER_MSG_RESTART_TIME : SERVER_MSG_SHUTDOWN_TIME;
 
         SendServerMessage(msgid, str.c_str(), player);
-        //DEBUG_LOG("Server is %s in %s", (m_ShutdownMask & SHUTDOWN_MASK_RESTART ? "restart" : "shutting down"), str.c_str());
+        DEBUG_LOG("Server is %s in %s", (m_ShutdownMask & SHUTDOWN_MASK_RESTART ? "restart" : "shutting down"), str.c_str());
     }
 }
 
@@ -1795,7 +1795,7 @@ void World::ShutdownCancel()
     m_ExitCode = SHUTDOWN_EXIT_CODE;                       // to default value
     SendServerMessage(msgid);
 
-    //DEBUG_LOG("Server %s cancelled.", (m_ShutdownMask & SHUTDOWN_MASK_RESTART ? "restart" : "shutdown"));
+    DEBUG_LOG("Server %s cancelled.", (m_ShutdownMask & SHUTDOWN_MASK_RESTART ? "restart" : "shutdown"));
 }
 
 void World::UpdateSessions(uint32 /*diff*/)
@@ -1853,7 +1853,7 @@ void World::InitServerMaintenanceCheck()
     QueryResult* result = CharacterDatabase.Query("SELECT NextMaintenanceDate FROM saved_variables");
     if (!result)
     {
-        //DEBUG_LOG("Maintenance date not found in SavedVariables, reseting it now.");
+        DEBUG_LOG("Maintenance date not found in SavedVariables, reseting it now.");
         uint32 mDate = GetDateLastMaintenanceDay();
         m_NextMaintenanceDate = mDate == GetDateToday() ?  mDate : mDate + 7;
         CharacterDatabase.PExecute("INSERT INTO saved_variables (NextMaintenanceDate) VALUES ('" UI64FMTD "')", uint64(m_NextMaintenanceDate));
@@ -1867,7 +1867,7 @@ void World::InitServerMaintenanceCheck()
     if (m_NextMaintenanceDate <= GetDateToday())
         ServerMaintenanceStart();
 
-    //DEBUG_LOG("Server maintenance check initialized.");
+    DEBUG_LOG("Server maintenance check initialized.");
 }
 
 // This handles the issued and queued CLI/RA commands
@@ -1880,7 +1880,7 @@ void World::ProcessCliCommands()
         auto const command = m_cliCommandQueue.front();
         m_cliCommandQueue.pop_front();
 
-        //DEBUG_LOG("CLI command under processing...");
+        DEBUG_LOG("CLI command under processing...");
 
         CliHandler handler(command->m_cliAccountId, command->m_cliAccessLevel, command->m_print);
         handler.ParseCommands(&command->m_command[0]);

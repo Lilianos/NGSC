@@ -107,13 +107,13 @@ void BattleGroundWS::RespawnFlag(Team team, bool captured)
 {
     if (team == ALLIANCE)
     {
-        //DEBUG_LOG("Respawn Alliance flag");
+        DEBUG_LOG("Respawn Alliance flag");
         m_FlagState[TEAM_INDEX_ALLIANCE] = BG_WS_FLAG_STATE_ON_BASE;
         SpawnEvent(WS_EVENT_FLAG_A, 0, true);
     }
     else
     {
-        //DEBUG_LOG("Respawn Horde flag");
+        DEBUG_LOG("Respawn Horde flag");
         m_FlagState[TEAM_INDEX_HORDE] = BG_WS_FLAG_STATE_ON_BASE;
         SpawnEvent(WS_EVENT_FLAG_H, 0, true);
     }

@@ -92,7 +92,7 @@ bool PostgreSQLConnection::Initialize(const char* infoString)
         return false;
     }
 
-    //DETAIL_LOG("Connected to Postgre database %s@%s:%s/%s", user.c_str(), host.c_str(), port_or_socket_dir.c_str(), database.c_str());
+    DETAIL_LOG("Connected to Postgre database %s@%s:%s/%s", user.c_str(), host.c_str(), port_or_socket_dir.c_str(), database.c_str());
     sLog.outString("PostgreSQL server ver: %d", PQserverVersion(mPGconn));
     return true;
 }
@@ -117,7 +117,7 @@ bool PostgreSQLConnection::_Query(const char* sql, PGresult** pResult, uint64* p
     }
     else
     {
-        //DEBUG_FILTER_LOG(LOG_FILTER_SQL_TEXT, "[%u ms] SQL: %s", WorldTimer::getMSTimeDiff(_s, WorldTimer::getMSTime()), sql);
+        DEBUG_FILTER_LOG(LOG_FILTER_SQL_TEXT, "[%u ms] SQL: %s", WorldTimer::getMSTimeDiff(_s, WorldTimer::getMSTime()), sql);
     }
 
     *pRowCount = PQntuples(*pResult);
@@ -189,7 +189,7 @@ bool PostgreSQLConnection::Execute(const char* sql)
     }
     else
     {
-        //DEBUG_FILTER_LOG(LOG_FILTER_SQL_TEXT, "[%u ms] SQL: %s", WorldTimer::getMSTimeDiff(_s, WorldTimer::getMSTime()), sql);
+        DEBUG_FILTER_LOG(LOG_FILTER_SQL_TEXT, "[%u ms] SQL: %s", WorldTimer::getMSTimeDiff(_s, WorldTimer::getMSTime()), sql);
     }
 
     PQclear(res);
@@ -210,7 +210,7 @@ bool PostgreSQLConnection::_TransactionCmd(const char* sql)
     }
     else
     {
-        //DEBUG_LOG("SQL: %s", sql);
+        DEBUG_LOG("SQL: %s", sql);
     }
     return true;
 }

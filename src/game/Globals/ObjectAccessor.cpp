@@ -197,7 +197,7 @@ ObjectAccessor::ConvertCorpseForPlayer(ObjectGuid player_guid, bool insignia)
         return nullptr;
     }
 
-    //DEBUG_LOG("Deleting Corpse and spawning bones.");
+    DEBUG_LOG("Deleting Corpse and spawning bones.");
 
     // remove corpse from player_guid -> corpse map
     RemoveCorpse(corpse);

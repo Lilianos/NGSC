@@ -114,9 +114,9 @@ bool QuestAccept_npc_dorius_stonetender(Player* pPlayer, Creature* pCreature, co
     if (pQuest->GetQuestId() == QUEST_ID_SUNTARA_STONES)
     {
         pCreature->AI()->SendAIEvent(AI_EVENT_START_ESCORT, pPlayer, pCreature, pQuest->GetQuestId());
+        return true;
     }
 
-        return true;
     return false;
 }
 
