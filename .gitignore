@@ -1,0 +1,16 @@
+bin/
+build/
+cmake/
+contrib/
+dep/
+doc/
+sql/
+AUTHORS.md
+ChangeLog.md
+CONTRIBUTING.md
+COPYING
+NEWS.md
+THANKS
+WARNING
+*.txt
+*.bat
