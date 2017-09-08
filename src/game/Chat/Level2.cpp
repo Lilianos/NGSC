@@ -1117,7 +1117,7 @@ bool ChatHandler::HandleGameObjectAddCommand(char* args)
         return false;
     }
 
-    DEBUG_LOG(GetMangosString(LANG_GAMEOBJECT_CURRENT), gInfo->name, db_lowGUID, x, y, z, o);
+    //DEBUG_LOG(GetMangosString(LANG_GAMEOBJECT_CURRENT), gInfo->name, db_lowGUID, x, y, z, o);
 
     map->Add(pGameObj);
 
@@ -2623,7 +2623,7 @@ inline void UnsummonVisualWaypoints(Player const* player, ObjectGuid ownerGuid)
  */
 bool ChatHandler::HandleWpAddCommand(char* args)
 {
-    DEBUG_LOG("DEBUG: HandleWpAddCommand");
+    //DEBUG_LOG("DEBUG: HandleWpAddCommand");
 
     CreatureInfo const* waypointInfo = ObjectMgr::GetCreatureTemplate(VISUAL_WAYPOINT);
     if (!waypointInfo || waypointInfo->GetHighGuid() != HIGHGUID_UNIT)
@@ -2799,7 +2799,7 @@ bool ChatHandler::HandleWpAddCommand(char* args)
  */
 bool ChatHandler::HandleWpModifyCommand(char* args)
 {
-    DEBUG_LOG("DEBUG: HandleWpModifyCommand");
+    //DEBUG_LOG("DEBUG: HandleWpModifyCommand");
 
     if (!*args)
         return false;
@@ -2830,7 +2830,7 @@ bool ChatHandler::HandleWpModifyCommand(char* args)
 
     if (targetCreature)
     {
-        DEBUG_LOG("DEBUG: HandleWpModifyCommand - User did select an NPC");
+        //DEBUG_LOG("DEBUG: HandleWpModifyCommand - User did select an NPC");
 
         // Check if the user did specify a visual waypoint
         if (targetCreature->GetEntry() != VISUAL_WAYPOINT || targetCreature->GetSubtype() != CREATURE_SUBTYPE_TEMPORARY_SUMMON)
@@ -3015,7 +3015,7 @@ bool ChatHandler::HandleWpModifyCommand(char* args)
  */
 bool ChatHandler::HandleWpShowCommand(char* args)
 {
-    DEBUG_LOG("DEBUG: HandleWpShowCommand");
+    //DEBUG_LOG("DEBUG: HandleWpShowCommand");
 
     if (!*args)
         return false;

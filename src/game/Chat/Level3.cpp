@@ -2154,7 +2154,7 @@ bool ChatHandler::HandleAddItemCommand(char* args)
     if (!plTarget)
         plTarget = pl;
 
-    DETAIL_LOG(GetMangosString(LANG_ADDITEM), itemId, count);
+    //DETAIL_LOG(GetMangosString(LANG_ADDITEM), itemId, count);
 
     ItemPrototype const* pProto = ObjectMgr::GetItemPrototype(itemId);
     if (!pProto)
@@ -2228,7 +2228,7 @@ bool ChatHandler::HandleAddItemSetCommand(char* args)
     if (!plTarget)
         plTarget = pl;
 
-    DETAIL_LOG(GetMangosString(LANG_ADDITEMSET), itemsetId);
+    //DETAIL_LOG(GetMangosString(LANG_ADDITEMSET), itemsetId);
 
     bool found = false;
     for (uint32 id = 0; id < sItemStorage.GetMaxEntry(); ++id)

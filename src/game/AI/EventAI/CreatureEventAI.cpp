@@ -168,7 +168,7 @@ bool CreatureEventAI::ProcessEvent(CreatureEventAIHolder& pHolder, Unit* pAction
     if (pHolder.Event.event_inverse_phase_mask & (1 << m_Phase))
     {
         if (!IsTimerBasedEvent(pHolder.Event.event_type))
-            DEBUG_FILTER_LOG(LOG_FILTER_EVENT_AI_DEV, "CreatureEventAI: Event %u skipped because of phasemask %u. Current phase %u", pHolder.Event.event_id, pHolder.Event.event_inverse_phase_mask, m_Phase);
+            //DEBUG_FILTER_LOG(LOG_FILTER_EVENT_AI_DEV, "CreatureEventAI: Event %u skipped because of phasemask %u. Current phase %u", pHolder.Event.event_id, pHolder.Event.event_inverse_phase_mask, m_Phase);
         return false;
     }
 
@@ -524,8 +524,7 @@ void CreatureEventAI::ProcessAction(CreatureEventAI_Action const& action, uint32
     if (action.type == ACTION_T_NONE)
         return;
 
-    DEBUG_FILTER_LOG(LOG_FILTER_EVENT_AI_DEV, "CreatureEventAI: Process action %u (script %u) triggered for %s (invoked by %s)",
-                     action.type, EventId, m_creature->GetGuidStr().c_str(), pActionInvoker ? pActionInvoker->GetGuidStr().c_str() : "<no invoker>");
+    //DEBUG_FILTER_LOG(LOG_FILTER_EVENT_AI_DEV, "CreatureEventAI: Process action %u (script %u) triggered for %s (invoked by %s)", action.type, EventId, m_creature->GetGuidStr().c_str(), pActionInvoker ? pActionInvoker->GetGuidStr().c_str() : "<no invoker>");
 
     bool reportTargetError = false;
     switch (action.type)
@@ -800,7 +799,7 @@ void CreatureEventAI::ProcessAction(CreatureEventAI_Action const& action, uint32
             break;
         case ACTION_T_SET_PHASE:
             m_Phase = action.set_phase.phase;
-            DEBUG_FILTER_LOG(LOG_FILTER_EVENT_AI_DEV, "CreatureEventAI: ACTION_T_SET_PHASE - script %u for %s, phase is now %u", EventId, m_creature->GetGuidStr().c_str(), m_Phase);
+            //DEBUG_FILTER_LOG(LOG_FILTER_EVENT_AI_DEV, "CreatureEventAI: ACTION_T_SET_PHASE - script %u for %s, phase is now %u", EventId, m_creature->GetGuidStr().c_str(), m_Phase);
             break;
         case ACTION_T_INC_PHASE:
         {
@@ -818,7 +817,7 @@ void CreatureEventAI::ProcessAction(CreatureEventAI_Action const& action, uint32
             else
                 m_Phase = new_phase;
 
-            DEBUG_FILTER_LOG(LOG_FILTER_EVENT_AI_DEV, "CreatureEventAI: ACTION_T_INC_PHASE - script %u for %s, phase is now %u", EventId, m_creature->GetGuidStr().c_str(), m_Phase);
+            //DEBUG_FILTER_LOG(LOG_FILTER_EVENT_AI_DEV, "CreatureEventAI: ACTION_T_INC_PHASE - script %u for %s, phase is now %u", EventId, m_creature->GetGuidStr().c_str(), m_Phase);
             break;
         }
         case ACTION_T_EVADE:
@@ -868,7 +867,7 @@ void CreatureEventAI::ProcessAction(CreatureEventAI_Action const& action, uint32
             break;
         case ACTION_T_RANDOM_PHASE:
             m_Phase = GetRandActionParam(rnd, action.random_phase.phase1, action.random_phase.phase2, action.random_phase.phase3);
-            DEBUG_FILTER_LOG(LOG_FILTER_EVENT_AI_DEV, "CreatureEventAI: ACTION_T_RANDOM_PHASE - script %u for %s, phase is now %u", EventId, m_creature->GetGuidStr().c_str(), m_Phase);
+            //DEBUG_FILTER_LOG(LOG_FILTER_EVENT_AI_DEV, "CreatureEventAI: ACTION_T_RANDOM_PHASE - script %u for %s, phase is now %u", EventId, m_creature->GetGuidStr().c_str(), m_Phase);
             break;
         case ACTION_T_RANDOM_PHASE_RANGE:
             if (action.random_phase_range.phaseMax > action.random_phase_range.phaseMin)
@@ -1570,7 +1569,7 @@ void CreatureEventAI::ReceiveEmote(Player* pPlayer, uint32 text_emote)
             PlayerCondition pcon(0, itr->Event.receive_emote.condition, itr->Event.receive_emote.conditionValue1, itr->Event.receive_emote.conditionValue2);
             if (pcon.Meets(pPlayer, m_creature->GetMap(), m_creature, CONDITION_FROM_EVENTAI))
             {
-                DEBUG_FILTER_LOG(LOG_FILTER_AI_AND_MOVEGENSS, "CreatureEventAI: ReceiveEmote CreatureEventAI: Condition ok, processing");
+                //DEBUG_FILTER_LOG(LOG_FILTER_AI_AND_MOVEGENSS, "CreatureEventAI: ReceiveEmote CreatureEventAI: Condition ok, processing");
                 ProcessEvent(*itr, pPlayer);
             }
         }

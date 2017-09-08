@@ -196,7 +196,7 @@ void Creature::RemoveCorpse(bool inPlace)
     if ((getDeathState() != CORPSE && !m_isDeadByDefault) || (getDeathState() != ALIVE && m_isDeadByDefault))
         return;
 
-    DEBUG_FILTER_LOG(LOG_FILTER_AI_AND_MOVEGENSS, "Removing corpse of %s ", GetGuidStr().c_str());
+	////DEBUG_FILTER_LOG(LOG_FILTER_AI_AND_MOVEGENSS, "Removing corpse of %s ", GetGuidStr().c_str());
 
     m_corpseDecayTimer = 0;
     SetDeathState(DEAD);
@@ -501,7 +501,7 @@ void Creature::Update(uint32 update_diff, uint32 diff)
         {
             if (m_respawnTime <= time(nullptr) && (!m_isSpawningLinked || GetMap()->GetCreatureLinkingHolder()->CanSpawn(this)))
             {
-                DEBUG_FILTER_LOG(LOG_FILTER_AI_AND_MOVEGENSS, "Respawning...");
+				////DEBUG_FILTER_LOG(LOG_FILTER_AI_AND_MOVEGENSS, "Respawning...");
                 m_respawnTime = 0;
                 m_aggroDelay = sWorld.getConfig(CONFIG_UINT32_CREATURE_RESPAWN_AGGRO_DELAY);
                 delete loot;
@@ -590,6 +590,21 @@ void Creature::Update(uint32 update_diff, uint32 diff)
         default:
             break;
     }
+
+	if (GetEntry() == 16697)
+	{
+		float x, y, z;
+		GetPosition(x, y, z);
+		if (z < 241.2)
+		{
+			DEBUG_LOG("z void = %f", z);
+		}
+
+	}
+
+
+	//Position const* position = movementInfo.GetPos();
+	//float z_diff = m_lastFallZ - position->z;
 }
 
 void Creature::RegenerateAll(uint32 update_diff)
@@ -738,7 +753,7 @@ bool Creature::AIM_Initialize()
     // make sure nothing can change the AI during AI update
     if (m_AI_locked)
     {
-        DEBUG_FILTER_LOG(LOG_FILTER_AI_AND_MOVEGENSS, "AIM_Initialize: failed to init, locked.");
+        //DEBUG_FILTER_LOG(LOG_FILTER_AI_AND_MOVEGENSS, "AIM_Initialize: failed to init, locked.");
         return false;
     }*/
 
@@ -1482,7 +1497,7 @@ void Creature::DeleteFromDB()
     CreatureData const* data = sObjectMgr.GetCreatureData(GetGUIDLow());
     if (!data)
     {
-        DEBUG_LOG("Trying to delete not saved creature!");
+		//DEBUG_LOG("Trying to delete not saved creature!");
         return;
     }
 
@@ -1796,7 +1811,7 @@ void Creature::SendAIReaction(AiReaction reactionType)
 
     ((WorldObject*)this)->SendMessageToSet(data, true);
 
-    DEBUG_FILTER_LOG(LOG_FILTER_AI_AND_MOVEGENSS, "WORLD: Sent SMSG_AI_REACTION, type %u.", reactionType);
+	////DEBUG_FILTER_LOG(LOG_FILTER_AI_AND_MOVEGENSS, "WORLD: Sent SMSG_AI_REACTION, type %u.", reactionType);
 }
 
 void Creature::CallAssistance()
@@ -2547,7 +2562,7 @@ struct SpawnCreatureInMapsWorker
         if (map->IsLoaded(i_data->posX, i_data->posY))
         {
             Creature* pCreature = new Creature;
-            // DEBUG_LOG("Spawning creature %u",*itr);
+            // //DEBUG_LOG("Spawning creature %u",*itr);
             if (!pCreature->LoadFromDB(i_guid, map))
             {
                 delete pCreature;

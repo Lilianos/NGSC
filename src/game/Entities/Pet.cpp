@@ -388,7 +388,7 @@ bool Pet::LoadPetFromDB(Player* owner, uint32 petentry /*= 0*/, uint32 petnumber
     _LoadSpellCooldowns();
 
     owner->SetPet(this);                                    // in DB stored only full controlled creature
-    DEBUG_LOG("New Pet has guid %u", GetGUIDLow());
+    //DEBUG_LOG("New Pet has guid %u", GetGUIDLow());
 
     if (owner->GetTypeId() == TYPEID_PLAYER)
     {
@@ -1463,7 +1463,7 @@ void Pet::_LoadSpellCooldowns()
 
             _AddCreatureSpellCooldown(spell_id, db_time);
 
-            DEBUG_LOG("Pet (Number: %u) spell %u cooldown loaded (%u secs).", m_charmInfo->GetPetNumber(), spell_id, uint32(db_time - curTime));
+            //DEBUG_LOG("Pet (Number: %u) spell %u cooldown loaded (%u secs).", m_charmInfo->GetPetNumber(), spell_id, uint32(db_time - curTime));
         }
         while (result->NextRow());
 
@@ -1656,7 +1656,7 @@ void Pet::_LoadAuras(uint32 timediff)
             if (!empty && AddSpellAuraHolder(holder))
             {
                 holder->SetState(SPELLAURAHOLDER_STATE_READY);
-                DETAIL_LOG("Added pet auras from spellid %u", spellproto->Id);
+                //DETAIL_LOG("Added pet auras from spellid %u", spellproto->Id);
             }
             else
                 delete holder;
@@ -2156,10 +2156,11 @@ void Pet::CastOwnerTalentAuras()
 void Pet::CastPetAura(PetAura const* aura)
 {
     uint32 auraId = aura->GetAura(GetEntry());
-    if (!auraId)
+    
+	if (!auraId)
         return;
 
-    CastSpell(this, auraId, TRIGGERED_OLD_TRIGGERED);
+	 CastSpell(this, auraId, TRIGGERED_OLD_TRIGGERED);
 }
 
 void Pet::SynchronizeLevelWithOwner()

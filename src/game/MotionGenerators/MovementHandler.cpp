@@ -33,7 +33,7 @@
 
 void WorldSession::HandleMoveWorldportAckOpcode(WorldPacket& /*recv_data*/)
 {
-    DEBUG_LOG("WORLD: got MSG_MOVE_WORLDPORT_ACK.");
+    //DEBUG_LOG("WORLD: got MSG_MOVE_WORLDPORT_ACK.");
     HandleMoveWorldportAckOpcode();
 }
 
@@ -76,17 +76,14 @@ void WorldSession::HandleMoveWorldportAckOpcode()
 
         if (!pMap)
         {
-            DETAIL_LOG("WorldSession::HandleMoveWorldportAckOpcode: %s was teleported far to nonexisten battleground instance "
-                       " (map:%u, x:%f, y:%f, z:%f) Trying to port him to his previous place..",
-                       GetPlayer()->GetGuidStr().c_str(), loc.mapid, loc.coord_x, loc.coord_y, loc.coord_z);
+            //DETAIL_LOG("WorldSession::HandleMoveWorldportAckOpcode: %s was teleported far to nonexisten battleground instance "" (map:%u, x:%f, y:%f, z:%f) Trying to port him to his previous place..", GetPlayer()->GetGuidStr().c_str(), loc.mapid, loc.coord_x, loc.coord_y, loc.coord_z);
 
             GetPlayer()->SetSemaphoreTeleportFar(false);
 
             // Teleport to previous place, if cannot be ported back TP to homebind place
             if (!GetPlayer()->TeleportTo(old_loc))
             {
-                DETAIL_LOG("WorldSession::HandleMoveWorldportAckOpcode: %s cannot be ported to his previous place, teleporting him to his homebind place...",
-                           GetPlayer()->GetGuidStr().c_str());
+                //DETAIL_LOG("WorldSession::HandleMoveWorldportAckOpcode: %s cannot be ported to his previous place, teleporting him to his homebind place...", GetPlayer()->GetGuidStr().c_str());
                 GetPlayer()->TeleportToHomebind();
             }
             return;
@@ -116,15 +113,12 @@ void WorldSession::HandleMoveWorldportAckOpcode()
         // if player wasn't added to map, reset his map pointer!
         GetPlayer()->ResetMap();
 
-        DETAIL_LOG("WorldSession::HandleMoveWorldportAckOpcode: %s was teleported far but couldn't be added to map "
-                   " (map:%u, x:%f, y:%f, z:%f) Trying to port him to his previous place..",
-                   GetPlayer()->GetGuidStr().c_str(), loc.mapid, loc.coord_x, loc.coord_y, loc.coord_z);
+        //DETAIL_LOG("WorldSession::HandleMoveWorldportAckOpcode: %s was teleported far but couldn't be added to map "" (map:%u, x:%f, y:%f, z:%f) Trying to port him to his previous place..", GetPlayer()->GetGuidStr().c_str(), loc.mapid, loc.coord_x, loc.coord_y, loc.coord_z);
 
         // Teleport to previous place, if cannot be ported back TP to homebind place
         if (!GetPlayer()->TeleportTo(old_loc))
         {
-            DETAIL_LOG("WorldSession::HandleMoveWorldportAckOpcode: %s cannot be ported to his previous place, teleporting him to his homebind place...",
-                       GetPlayer()->GetGuidStr().c_str());
+            //DETAIL_LOG("WorldSession::HandleMoveWorldportAckOpcode: %s cannot be ported to his previous place, teleporting him to his homebind place...", GetPlayer()->GetGuidStr().c_str());
             GetPlayer()->TeleportToHomebind();
         }
         return;
@@ -198,7 +192,7 @@ void WorldSession::HandleMoveWorldportAckOpcode()
 
 void WorldSession::HandleMoveTeleportAckOpcode(WorldPacket& recv_data)
 {
-    DEBUG_LOG("MSG_MOVE_TELEPORT_ACK");
+    //DEBUG_LOG("MSG_MOVE_TELEPORT_ACK");
 
     ObjectGuid guid;
 
@@ -206,8 +200,8 @@ void WorldSession::HandleMoveTeleportAckOpcode(WorldPacket& recv_data)
 
     uint32 counter, time;
     recv_data >> counter >> time;
-    DEBUG_LOG("Guid: %s", guid.GetString().c_str());
-    DEBUG_LOG("Counter %u, time %u", counter, time / IN_MILLISECONDS);
+    //DEBUG_LOG("Guid: %s", guid.GetString().c_str());
+    //DEBUG_LOG("Counter %u, time %u", counter, time / IN_MILLISECONDS);
 
     Unit* mover = _player->GetMover();
     Player* plMover = mover->GetTypeId() == TYPEID_PLAYER ? (Player*)mover : nullptr;
@@ -250,7 +244,7 @@ void WorldSession::HandleMovementOpcodes(WorldPacket& recv_data)
     uint16 opcode = recv_data.GetOpcode();
     if (!sLog.HasLogFilter(LOG_FILTER_PLAYER_MOVES))
     {
-        DEBUG_LOG("WORLD: Received opcode %s (%u, 0x%X)", LookupOpcodeName(opcode), opcode, opcode);
+		//DEBUG_LOG("WORLD: Received opcode %s (%u, 0x%X)", LookupOpcodeName(opcode), opcode, opcode);
         recv_data.hexlike();
     }
 
@@ -291,7 +285,7 @@ void WorldSession::HandleMovementOpcodes(WorldPacket& recv_data)
 void WorldSession::HandleForceSpeedChangeAckOpcodes(WorldPacket& recv_data)
 {
     uint16 opcode = recv_data.GetOpcode();
-    DEBUG_LOG("WORLD: Received %s (%u, 0x%X) opcode", recv_data.GetOpcodeName(), opcode, opcode);
+    //DEBUG_LOG("WORLD: Received %s (%u, 0x%X) opcode", recv_data.GetOpcodeName(), opcode, opcode);
 
     /* extract packet */
     ObjectGuid guid;
@@ -356,7 +350,7 @@ void WorldSession::HandleForceSpeedChangeAckOpcodes(WorldPacket& recv_data)
 
 void WorldSession::HandleSetActiveMoverOpcode(WorldPacket& recv_data)
 {
-    DEBUG_LOG("WORLD: Received opcode CMSG_SET_ACTIVE_MOVER");
+	//DEBUG_LOG("WORLD: Received opcode CMSG_SET_ACTIVE_MOVER");
 
     ObjectGuid guid;
     recv_data >> guid;
@@ -371,7 +365,7 @@ void WorldSession::HandleSetActiveMoverOpcode(WorldPacket& recv_data)
 
 void WorldSession::HandleMoveNotActiveMoverOpcode(WorldPacket& recv_data)
 {
-    DEBUG_LOG("WORLD: Received opcode CMSG_MOVE_NOT_ACTIVE_MOVER");
+	//DEBUG_LOG("WORLD: Received opcode CMSG_MOVE_NOT_ACTIVE_MOVER");
     recv_data.hexlike();
 
     ObjectGuid old_mover_guid;
@@ -395,7 +389,7 @@ void WorldSession::HandleMoveNotActiveMoverOpcode(WorldPacket& recv_data)
 
 void WorldSession::HandleMountSpecialAnimOpcode(WorldPacket& /*recvdata*/)
 {
-    // DEBUG_LOG("WORLD: Received opcode CMSG_MOUNTSPECIAL_ANIM");
+    // //DEBUG_LOG("WORLD: Received opcode CMSG_MOUNTSPECIAL_ANIM");
 
     WorldPacket data(SMSG_MOUNTSPECIAL_ANIM, 8);
     data << GetPlayer()->GetObjectGuid();
@@ -405,7 +399,7 @@ void WorldSession::HandleMountSpecialAnimOpcode(WorldPacket& /*recvdata*/)
 
 void WorldSession::HandleMoveKnockBackAck(WorldPacket& recv_data)
 {
-    DEBUG_LOG("CMSG_MOVE_KNOCK_BACK_ACK");
+	//DEBUG_LOG("CMSG_MOVE_KNOCK_BACK_ACK");
 
     Unit* mover = _player->GetMover();
     Player* plMover = mover->GetTypeId() == TYPEID_PLAYER ? (Player*)mover : nullptr;
@@ -456,7 +450,7 @@ void WorldSession::SendKnockBack(float angle, float horizontalSpeed, float verti
 
 void WorldSession::HandleMoveHoverAck(WorldPacket& recv_data)
 {
-    DEBUG_LOG("CMSG_MOVE_HOVER_ACK");
+    //DEBUG_LOG("CMSG_MOVE_HOVER_ACK");
 
     MovementInfo movementInfo;
 
@@ -468,7 +462,7 @@ void WorldSession::HandleMoveHoverAck(WorldPacket& recv_data)
 
 void WorldSession::HandleMoveWaterWalkAck(WorldPacket& recv_data)
 {
-    DEBUG_LOG("CMSG_MOVE_WATER_WALK_ACK");
+    //DEBUG_LOG("CMSG_MOVE_WATER_WALK_ACK");
 
     MovementInfo movementInfo;
 

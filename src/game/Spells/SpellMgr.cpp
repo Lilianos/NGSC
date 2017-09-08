@@ -1031,7 +1031,7 @@ void SpellMgr::LoadSpellBonuses()
 
 bool SpellMgr::IsSpellProcEventCanTriggeredBy(SpellProcEventEntry const* spellProcEvent, uint32 EventProcFlag, SpellEntry const* procSpell, uint32 procFlags, uint32 procExtra)
 {
-    // No extra req need
+	// No extra req need
     uint32 procEvent_procEx = PROC_EX_NONE;
 
     // check prockFlags for condition

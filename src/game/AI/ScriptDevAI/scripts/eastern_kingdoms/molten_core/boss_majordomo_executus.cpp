@@ -178,7 +178,7 @@ struct boss_majordomoAI : public ScriptedAI
             m_creature->SetFlag(UNIT_NPC_FLAGS, UNIT_NPC_FLAG_GOSSIP);
 
             // Relocate here
-            debug_log("SD2: boss_majordomo_executus: Relocate to Ragnaros' Lair on respawn");
+            //DEBUG_log("SD2: boss_majordomo_executus: Relocate to Ragnaros' Lair on respawn");
             m_creature->GetMap()->CreatureRelocation(m_creature, m_aMajordomoLocations[1].m_fX, m_aMajordomoLocations[1].m_fY, m_aMajordomoLocations[1].m_fZ, m_aMajordomoLocations[1].m_fO);
             m_creature->SetActiveObjectState(false);
         }
@@ -205,7 +205,7 @@ struct boss_majordomoAI : public ScriptedAI
         if (m_bHasEncounterFinished)
         {
             // Needed for proper respawn handling
-            debug_log("SD2: boss_majordomo_executus: Set active");
+            //DEBUG_log("SD2: boss_majordomo_executus: Set active");
             m_creature->SetActiveObjectState(true);
         }
     }
