@@ -1,0 +1,1 @@
+UPDATE `mangos`.`spell_template` SET `Effect1`='41' WHERE `Id`=10061;
