@@ -75,7 +75,7 @@ void AddItemsSetItem(Player* player, Item* item)
     {
         if (!set->spells[x])
             continue;
-        // not enough for  spell
+        // not enough for spell
         if (set->items_to_triggerspell[x] > eff->item_count)
             continue;
 

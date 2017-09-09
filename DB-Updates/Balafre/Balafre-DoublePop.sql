@@ -1,0 +1,2 @@
+insert into `dbscripts_on_quest_end` (`id`, `delay`, `command`, `datalong`, `datalong2`, `datalong3`, `buddy_entry`, `search_radius`, `data_flags`, `dataint`, `dataint2`, `dataint3`, `dataint4`, `x`, `y`, `z`, `o`, `comments`) values('252','0','34','204','0','0','0','0','0','0','0','0','0','0','0','0','0','stop if stitches already spawned');
+insert into `conditions` (`condition_entry`, `type`, `value1`, `value2`) values('204','37','412','100000');
